@@ -10,7 +10,16 @@
 #else
 #include "environ.h"
 #endif
-/* name -- value/nil */
+/*
+---#DES 'env.get_env'
+---
+---Gets value of env variable.
+---Returns value on success or nil, error description and errno on failure.
+---@param name string
+---@return string|nil, nil|string, nil|integer
+
+name -- value/nil
+*/
 static int eli_getenv(lua_State *L)
 {
     const char *nam = luaL_checkstring(L, 1);
@@ -32,8 +41,17 @@ static int eli_getenv(lua_State *L)
     return 1;
 }
 
-/* name value -- true/nil error
- * name nil -- true/nil error */
+/*
+---#DES 'env.set_env'
+---
+---Gets value of env variable.
+---Returns true on success or nil, error description and errno on failure.
+---@param name string
+---@param value string
+---@return boolean|nil, nil|string, nil|integer
+
+name value -- true/nil error
+name nil -- true/nil error*/
 static int eli_setenv(lua_State *L)
 {
     const char *nam = luaL_checkstring(L, 1);
@@ -50,7 +68,15 @@ static int eli_setenv(lua_State *L)
     return 1;
 }
 
-/* -- environment-table */
+
+/* 
+---#DES 'env.environment'
+---
+---Gets environment table (all env variables).
+---Returns table on success or nil, error description and errno on failure.
+---@return table<string,string>|nil, nil|string, nil|integer
+
+-- environment-table */
 static int eli_environ(lua_State *L)
 {
     const char *nam, *val, *end;
