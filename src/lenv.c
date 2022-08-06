@@ -16,7 +16,7 @@
 ---Gets value of env variable.
 ---Returns value on success or nil, error description and errno on failure.
 ---@param name string
----@return string|nil, nil|string, nil|integer
+---@return string?, string?, integer?
 
 name -- value/nil
 */
@@ -74,7 +74,7 @@ static int eli_setenv(lua_State *L)
 ---
 ---Gets environment table (all env variables).
 ---Returns table on success or nil, error description and errno on failure.
----@return table<string,string>|nil, nil|string, nil|integer
+---@return table<string,string>?, string?, integer?
 
 -- environment-table */
 static int eli_environ(lua_State *L)
