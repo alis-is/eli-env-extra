@@ -30,7 +30,7 @@ static int eli_getenv(lua_State *L)
     if (sizeof sval < len)
         len = GetEnvironmentVariable(nam, val = lua_newuserdata(L, len), len);
     if (len == 0)
-        return push_error(L);
+        return push_error(L, NULL);
     lua_pushlstring(L, val, len);
 #else
     val = getenv(nam);
@@ -58,7 +58,7 @@ static int eli_setenv(lua_State *L)
     const char *val = lua_tostring(L, 2);
 #ifdef _WIN32
     if (!SetEnvironmentVariable(nam, val))
-        return push_error(L);
+        return push_error(L, NULL);
 #else
     int err = val ? setenv(nam, val, 1) : unsetenv(nam);
     if (err == -1)
@@ -84,7 +84,7 @@ static int eli_environ(lua_State *L)
 #ifdef _WIN32
     const char *envs = GetEnvironmentStrings();
     if (!envs)
-        return push_error(L);
+        return push_error(L, NULL);
     for (nam = envs; *nam; nam = end + 1)
     {
         end = strchr(val = strchr(nam, '=') + 1, '\0');
